@@ -6,9 +6,41 @@
 Answer *get_indices_of_item_weights(int *weights, int length, int limit)
 {
   HashTable *ht = create_hash_table(16);
+  Answer *answer = malloc(sizeof(Answer));
 
   /* YOUR CODE HERE */
 
+  if (length > 1) {
+    for (int in = 0; in <= length; in++) {
+      hash_table_insert(ht, weights[in], in);
+    }
+
+    for (int ind = 0; ind <= length; ind++) {
+
+      int first = weights[ind];
+      int remainder = limit - first;
+      int second = hash_table_retrieve(ht, remainder);
+      
+      if (second > -1) {
+
+        if (second >= ind) {
+
+          answer->index_1 = second;
+          answer->index_2 = ind;
+
+        } else {
+
+          answer->index_1 = ind;
+          answer->index_2 = second;
+
+        }
+
+        return answer;
+
+      }
+
+    }
+  }
   return NULL;
 }
 
